@@ -1,0 +1,19 @@
+services:
+  qbittorent:
+    # image: qbittorent
+    build: .
+    restart: unless-stopped
+    ports:
+      - "8080:8080/tcp"
+      - "47273:47273/udp"
+      - "47273:47273/tcp"
+      - "9000:9000/tcp"
+      - "9000:9000/udp"
+    volumes:
+      - downloads:/downloads
+      - data:/home/qbittorent/.local/share/qBittorrent
+      - config:/home/qbittorent/.config/qBittorrent
+volumes:
+  downloads:
+  data:
+  config:
