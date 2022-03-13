@@ -1,6 +1,6 @@
 services:
   qbittorent:
-    image: ghcr.io/thelovinator1/qbittorent:master
+    image: ghcr.io/thelovinator1/qbittorrent:master
     # build: .
     restart: unless-stopped
     ports:
@@ -11,8 +11,8 @@ services:
       - "9000:9000/udp"
     volumes:
       - downloads:/downloads
-      - data:/home/qbittorent/.local/share/qBittorrent
-      - config:/home/qbittorent/.config/qBittorrent
+      - data:/home/qbittorrent/.local/share/qBittorrent
+      - config:/home/qbittorrent/.config/qBittorrent
 volumes:
   downloads:
   data:
