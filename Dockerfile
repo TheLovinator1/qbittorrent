@@ -1,38 +1,22 @@
-FROM archlinux
+FROM ubuntu:latest
 
-# Add mirrors for Sweden. You can add your own mirrors to the mirrorlist file. Should probably use reflector.
-ADD mirrorlist /etc/pacman.d/mirrorlist
+# https://github.com/opencontainers/image-spec/blob/main/annotations.md#pre-defined-annotation-keys
+LABEL org.opencontainers.image.authors="Joakim Hellsén <tlovinator@gmail.com>" \
+org.opencontainers.image.url="https://github.com/Feed-The-Fish/qbittorrent" \
+org.opencontainers.image.documentation="https://github.com/Feed-The-Fish/qbittorrent" \
+org.opencontainers.image.source="https://github.com/Feed-The-Fish/qbittorrent" \
+org.opencontainers.image.vendor="Joakim Hellsén" \
+org.opencontainers.image.license="GPL-3.0+" \
+org.opencontainers.image.title="qbittorrent" \
+org.opencontainers.image.description="An advanced BitTorrent client programmed in C++, based on libtorrent-rasterbar."
 
-# NOTE: For Security Reasons, archlinux image strips the pacman lsign key.
-# This is because the same key would be spread to all containers of the same
-# image, allowing for malicious actors to inject packages (via, for example,
-# a man-in-the-middle).
-RUN gpg --refresh-keys && pacman-key --init && pacman-key --populate archlinux
-
-# Set locale. Needed for some programs.
-# https://wiki.archlinux.org/title/locale
-RUN echo "en_US.UTF-8 UTF-8" >"/etc/locale.gen" && locale-gen && echo "LANG=en_US.UTF-8" >"/etc/locale.conf"
-
-# Create a new user with id 1000 and name "qbittorrent".
-# https://linux.die.net/man/8/useradd
-# https://linux.die.net/man/8/groupadd
-RUN groupadd --gid 1000 qbittorrent && \
-useradd -m --uid 1000 --gid 1000 qbittorrent
-
-# Update the system and install qbittorrent-nox and Python
-# Python is needed for the torrent search tab
-# https://archlinux.org/packages/community/x86_64/qbittorrent-nox/
-RUN pacman -Syu --noconfirm && pacman -S qbittorrent-nox python --noconfirm
-
-# Create download folder and set ownership.
-# We also create a folder for data and config. If we don't do this before VOLUME is set, the folder will be created as root.
-# https://linux.die.net/man/1/install
-RUN install -d /downloads --owner=qbittorrent --group=qbittorrent && \
+# https://launchpad.net/~qbittorrent-team/+archive/ubuntu/qbittorrent-stable
+RUN apt-get update && apt-get install -y software-properties-common && add-apt-repository ppa:qbittorrent-team/qbittorrent-stable && apt-get install -y qbittorrent-nox && \
+groupadd --gid 1000 qbittorrent && \
+useradd -m --uid 1000 --gid 1000 qbittorrent && \
+install -d /downloads --owner=qbittorrent --group=qbittorrent && \
 install -d /home/qbittorrent/.config/qBittorrent --owner=qbittorrent --group=qbittorrent && \
 install -d /home/qbittorrent/.local/share/qBittorrent --owner=qbittorrent --group=qbittorrent
-
-# Remove cache. TODO: add more cleanup. Should we remove pacman?
-RUN rm -rf /var/cache/*
 
 # Config files are stored in /home/qbittorrent/.config/qBittorrent
 # Logs, backup of torrent files and RSS feeds are stored in /home/qbittorrent/.local/share/qBittorrent
@@ -48,4 +32,4 @@ EXPOSE 8080/tcp 47273/tcp 47273/udp 9000/tcp 9000/udp
 # Don't run the server as root.
 USER qbittorrent
 
-CMD ["qbittorrent-nox"]
+CMD ["qbittorrent-nox", "--webui-port=8080"]

@@ -1,10 +1,10 @@
-# qbittorrent-nox
+# qbittorrent
 
-An advanced BitTorrent client programmed in C++, based on Qt toolkit and libtorrent-rasterbar, w/o gui
+An advanced BitTorrent client programmed in C++, based on libtorrent-rasterbar
 
 ## Docker
 
-This Docker image is using the [Arch Linux](https://hub.docker.com/_/archlinux/) as base image. The qBittorrent runs as a user with the id `1000`.
+This Docker image is using [Ubuntu 22.04](https://hub.docker.com/_/ubuntu/) as base image. qBittorrent runs as a user with the id `1000`.
 
 ## Ports
 
@@ -19,4 +19,4 @@ This Docker image is using the [Arch Linux](https://hub.docker.com/_/archlinux/)
 - Email: [tlovinator@gmail.com](mailto:tlovinator@gmail.com)
 - Discord: TheLovinator#9276
 - Steam: [TheLovinator](https://steamcommunity.com/id/TheLovinator/)
-- Send an issue: [docker-arch-qbittorrent-nox/issues](https://github.com/TheLovinator1/docker-arch-qbittorrent-nox/issues)
+- Send an issue: [qbittorrent/issues](https://github.com/feed-the-fish/qbittorrent/issues)
