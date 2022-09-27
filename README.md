@@ -1,3 +1,8 @@
+# Don't use this :-)
+
+Better containers are out there, you should use [linuxserver/qbittorrent](https://github.com/linuxserver/docker-qbittorrent)
+instead.
+
 # qbittorrent
 
 An advanced BitTorrent client programmed in C++, based on libtorrent-rasterbar
@@ -10,7 +15,7 @@ with the id `1000`.
 ## Ports
 
 | Port     | Description                                                       | Required |
-| -------- | ----------------------------------------------------------------- | -------- |
+|----------|-------------------------------------------------------------------|----------|
 | 8080/tcp | Web interface                                                     | Yes      |
 | 47273    | Listening Port                                                    | Yes      |
 | 9000     | Embedded tracker port, needs to be enabled in Options -> Advanced | No       |
@@ -19,5 +24,4 @@ with the id `1000`.
 
 - Email: [tlovinator@gmail.com](mailto:tlovinator@gmail.com)
 - Discord: TheLovinator#9276
-- Steam: [TheLovinator](https://steamcommunity.com/id/TheLovinator/)
-- Send an issue: [qbittorrent/issues](https://github.com/feed-the-fish/qbittorrent/issues)
+- Send an issue: [qbittorrent/issues](https://github.com/TheLovinator1/qbittorrent/issues)

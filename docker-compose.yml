@@ -1,5 +1,5 @@
 services:
-  qbittorent:
+  qbittorrent:
     image: ghcr.io/thelovinator1/qbittorrent:master
     restart: unless-stopped
     ports:
